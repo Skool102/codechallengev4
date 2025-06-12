@@ -17,9 +17,6 @@ export async function createNewAccessCode(req, res) {
     try {
         const userRef = db.collection('users').doc(phoneNumber);
         await userRef.set({ accessCode, phoneNumber, createdAt: new Date().toISOString() }, { merge: true });
-
-        // TODO: Gửi SMS tại đây nếu cần (Twilio, v.v.)
-
         return res.json({ success: true, accessCode });
     } catch (error) {
         console.error('Error creating access code:', error);
